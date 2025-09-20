@@ -232,20 +232,180 @@ class Program
         // #endregion
 
 
-        #region 
+        // #region 
 
-        string text1 = "Nişantaşı";
-        string text2 = "Üniversitesi";
-        string oldLocation = "Bayrampaşa";
-        string currentLocation = "Sarıyer";
-        string date1 = "09.09.2009";
-        string date2 = "05.05.2018";
+        // string text1 = "Nişantaşı";
+        // string text2 = "Üniversitesi";
+        // string oldLocation = "Bayrampaşa";
+        // string currentLocation = "Sarıyer";
+        // string date1 = "09.09.2009";
+        // string date2 = "05.05.2018";
 
-        // Hedef: Nişantaşı Üniversitesi, 09.09.2009 tarihinde İstanbul'un Bayrampaşa ilçesinde faaliyetlerine başlamıştır. Ardından 05.05.2018 tarihinde yine İstanbul'un Sarıyer ilçesinde kurulan TechCampus'e taşınmıştır.
+        // // Hedef: Nişantaşı Üniversitesi, 09.09.2009 tarihinde İstanbul'un Bayrampaşa ilçesinde faaliyetlerine başlamıştır. Ardından 05.05.2018 tarihinde yine İstanbul'un Sarıyer ilçesinde kurulan TechCampus'e taşınmıştır.
 
-        string result3 = $"{text1} {text2}, {date1} tarihinde İstanbul'un {oldLocation} ilçesinde faaliyetlerine başlamıştır. Ardından {date2} tarihinde yine İstanbul'un {currentLocation} ilçesinde kurulan TechCampus'e taşınmıştır.";
-        Console.WriteLine(result3);
-        #endregion
+        // string result3 = $"{text1} {text2}, {date1} tarihinde İstanbul'un {oldLocation} ilçesinde faaliyetlerine başlamıştır. Ardından {date2} tarihinde yine İstanbul'un {currentLocation} ilçesinde kurulan TechCampus'e taşınmıştır.";
+        // Console.WriteLine(result3);
+        // #endregion
+
+
+        //kullanıcı yaşını girsin. eğer yaşı 18 den büyük ise ehliyet alabilsin değilse ehliyet alamazsın yazsın ekranda.
+
+        //     #region 
+
+        //     int age,deger;
+        //     Console.WriteLine("--- Ehliyet Alma Programı ---");
+
+        //     Console.Write("Yaşınızı giriniz : ");
+        //     age = int.Parse(Console.ReadLine());
+        //     deger = 18 - age;
+        //     if (age >= 18)
+        //     {
+        //         Console.WriteLine("Tebrikler Ehliyet Alabilirsiniz.");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Maalesef Ehliyet için " + deger + " yaş beklemelisiniz.");
+        //     }
+
+        //    #endregion
+
+        /* kullanıcıdan 0–100 arası bir not girmesi istenmektedir. Girilen nota göre öğrencinin harf notu belirlenmektedir.
+          studentPoint >= 80 A-Pekiyi
+          studentPoint >= 60 B-İyi
+          studentPoint >= 40 C-Orta
+          studentPoint >= 20 D-Geçer
+          E-Zayıf
+          Şekilnde çıktı alabileceğimiz programın kodunu yazın. */
+
+        // #region 
+
+        // int studentPoint;
+
+        // Console.WriteLine("*** Öğrenci Harf Not Sistemi ***");
+
+        // Console.Write("Lütfen Puanınızı Girin : ");
+        // studentPoint = int.Parse(Console.ReadLine());
+
+        // if (studentPoint >= 80)
+        // {
+        //     Console.WriteLine("Harf Notunuz : A-Pekiyi " + studentPoint);
+        // }
+        // else if (studentPoint >= 60)
+        // {
+        //     Console.WriteLine("Harf Notunuz : B-İyi " + studentPoint);
+        // }
+        // else if (studentPoint >= 40)
+        // {
+        //     Console.WriteLine("Harf Notunuz : C-Orta " + studentPoint);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("Harf Notunuz : D-Geçer " + studentPoint);
+        // }
+
+        //  #endregion
+
+
+        /*  Kullanıcı Tek Harfle p-g-s harfiyele mağazadan statüsüne göre %kaç indirim kazanacağını görsün.
+             P=%50   G=%30  S=%10 
+              */
+
+        // #region  Switch Case Break;
+
+        // char customerType;
+        // Console.WriteLine("E- Mağazamıza Hoşgeldiniz");
+
+        // Console.Write("Lütfen Statünüzü Tek Haf İle Belirtiniz : ");
+        // customerType = char.Parse(Console.ReadLine());
+
+        // switch (customerType)
+        // {
+        //     case 'P':
+        //         Console.WriteLine("Hoşgeldiniz Premium %50 İndirim.");
+        //         break;
+        //     case 'G':
+        //         Console.WriteLine("Hoşgeldinizi Gold %30 İndirim.");
+        //         break;
+        //     default:
+        //         Console.WriteLine("Hoşgeldinizi standart %10 İndirim ");
+        //         break;    
+        // }
+
+
+        // #endregion
+
+        // Ternary If
+        // #region 
+
+        // string password = "Qwe123";
+        // Console.Write("Şifrenizi giriniz: ");
+        // string inputPassword = Console.ReadLine();
+        // string message = inputPassword == password ? "Başarılı giriş!" : "Başarısız giriş!";
+        // /*  Eğer inputPassword==pasword true ise 
+        //         string message = "Başarılı giriş"; yazmış sayılırsınız.
+        //     Eğer inputPassword==pasword false ise 
+        //         string message = "Başarısız giriş"; yazmış sayılırsınız.
+        // */
+        // Console.WriteLine(message);
+
+        //  #endregion
+
+        // Ekrana 10 ‘na Kadar Artan sayıları Teker teker yazan programı kodunu yazın.
+
+        // #region 
+
+        // int i;
+        // for (i = 1; i<10; i++)
+        // {
+        //     Console.WriteLine("Sayılar : " + i);
+        // }
+
+        // #endregion
+
+
+        // 5000 TL'lik anaparayı yıllık %20 faizle yıl boyu işletelim, 5 yıllık durumu görelim
+
+        //     #region for döngüsü
+        //    decimal anaPara = 5000m;
+        //     decimal faizOrani = 0.20m;
+
+        //      Console.WriteLine($"Başlangıç Anapara = {anaPara} TL");
+
+        //     for (int yil = 1; yil <= 5; yil++)
+        //     {
+        //          anaPara += anaPara * faizOrani;
+        //          Console.WriteLine($"{yil}.Yıl Sonu Bakiye: {anaPara} TL");
+        //          Console.WriteLine(yil + ".Yıl Sonu Bakiye: " + anaPara + " TL");
+        //      }
+
+        //    #endregion
+
+    //     #region  While Döngüsü
+    //  int bakiye = 1000;
+    //     int cekilecekMiktar = 0;
+
+    //     while (bakiye > 0)
+    //     {
+    //         Console.Write($"Mevcut Bakiyeniz: {bakiye} TL. Çekmek istediğiniz tutarı girin(Çıkmak için 0 girin): ");
+    //         cekilecekMiktar = Convert.ToInt32(Console.ReadLine());
+    //         if (cekilecekMiktar == 0)
+    //         {
+    //             Console.WriteLine("İşlem sonlandırıldı!");
+    //             break; // döngüyü sonlandır, yani while bloğunun alt satırına geç
+    //         }
+            
+    //         if (cekilecekMiktar > bakiye)
+    //         {
+    //             Console.WriteLine("Yetersiz bakiye! Daha küçük bir değer girin!");
+    //             continue; // Döngüye devam et, yani while satırına geç
+    //         }
+    //         bakiye -= cekilecekMiktar;
+    //         Console.WriteLine($"Para çekildi. Kalan Bakiye: {bakiye} TL");
+    //     }
+
+    //     Console.WriteLine("Uygulama sona erdi!");
+    
+    // #endregion
 
 
 
