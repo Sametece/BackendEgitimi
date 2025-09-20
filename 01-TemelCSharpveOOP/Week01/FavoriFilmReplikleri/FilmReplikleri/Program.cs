@@ -7,10 +7,12 @@ class Program
         Console.WriteLine("***** Favori Film Replikleri ***** ");
         Console.WriteLine("- 1.Inception ");
         Console.WriteLine("Eğer rüyada ölürsen, gerçeklikte uyanırsın.");
+        Console.WriteLine();
 
         Console.WriteLine("- 2.Hızlı ve Öfkeli ");
-        Console.WriteLine(" + En Önemlisi 2 sağlam şoföre ihtiyacımız var. Baskı altında asla pes etmeyen - Bizi tarif eder gibisin."); 
+        Console.WriteLine(" + En Önemlisi 2 sağlam şoföre ihtiyacımız var. Baskı altında asla pes etmeyen - Bizi tarif eder gibisin.");
         // - Dominic Toretto
+        Console.WriteLine();
         Console.WriteLine("- 3. Çakallarla Dans ");
         Console.WriteLine(" + Yaktınız Lan Beni Necmiii!!!!!!"); // - Hikmet
         
