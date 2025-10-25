@@ -15,5 +15,6 @@ class Program
 
         bool aktif;  // bool fonksiyonu ya true yada false döndürür yani öyle mi değil mi ...
 
+        Console.WriteLine(int.MaxValue);
     }
 }

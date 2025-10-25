@@ -6,49 +6,62 @@ class Program
 {
     static void Main(string[] args)
     {
-        // string fullName = "Samet Ece";
-        //  Console.WriteLine(fullName);
-
+         // string: Metinler, "" string adSoyad = "Samet Ece"
+        // string fullName = "Cengiz Aytmatov";
+        // Console.Write("Ad Soyad: ");
+        // Console.WriteLine(fullName);
         // string age = "45";
+        // Console.Write("Yaş: ");
         // Console.WriteLine(age);
 
-        // string name = "Yeşil Bora Şti";
+        // string fullName = "Cengiz Aytmatov";
+        // Console.WriteLine("Ad Soyad: " + fullName);
+        // string age = "45";
+        // Console.WriteLine("Yaş: " + age);
+
+        // string fullName = "Cengiz Aytmatov";
+        // string printedFullName = "Ad Soyad: " + fullName;
+        // Console.WriteLine(printedFullName);
+        // string age = "45";
+        // string printedAge = "Yaş: " + age;
+        // Console.WriteLine(printedAge);
+
+        // string name = "Yeşil Bora Şti.";
         // int year = 2023;
-        // Console.WriteLine(name + "-" +  year);
+        // Console.WriteLine(name + "-" + year);
 
         // int a = 45;
         // int b = 50;
         // string c = "Metin";
+        // Console.WriteLine(c + a + b);
         // Console.WriteLine(a + b + c);
-        // Console.WriteLine(c+ b + a);
 
-        // byte a = 56;  // 0 -100
-        // int b = 2147453647;
-        // long
+        // byte a = 56;
+        // int b = 2147483647;
+        // long c = 2147483648;
+        // Console.WriteLine(long.MaxValue);
 
-        // bool isActive = true; // 2 durum için evet-hayır , açık-kapalı gibi
-        // string active = "pasive"; // böyle kullanmayız 
+        // bool isActive = true;
+        // string active = "passive"; // böyle kullanmamalıyız
 
         // byte a = 60;
-        // int b = a; // Implicity Converting - örütülü Dönüştürme
+        // int b = a;  // Implicitly Converting-Örtülü Dönüştürme
 
-        // int a = 255;
-        // byte b = Convert.ToByte(a); // Convert.ToByte sayılar  arasında dönüştürme 
-
-        // Console.WriteLine("a : " + a);
-        // Console.WriteLine("b  : " + b);
+        // int a = 256; // 8 byte
+        // byte b = Convert.ToByte(a);  // 00000000000000000000000011111111. // Explicitly Converting
+        // Console.WriteLine("a: " + a);
+        // Console.WriteLine("b: " + b);
 
         // int a = 56;
         // int b = 60;
-        // string c = a.ToString() + b.ToString();
-        // Console.WriteLine(c);  // sayıları karektere stringe çeviriyor
+        // // string c = a.ToString() + b.ToString();
+        // string c = (a + b).ToString();
+        // Console.WriteLine(c);
 
-        // ondalıklı sayılar
-
+        // Ondalıklı Sayılar
         // double a = 5.6;
         // decimal b = 7.7m;
         // float c = 9.7f;
-        
          
          
 
