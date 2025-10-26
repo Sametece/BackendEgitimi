@@ -1,4 +1,5 @@
-﻿using ŞirketDepartmanVeÇalışanYönetimi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ŞirketDepartmanVeÇalışanYönetimi.Data;
 using ŞirketDepartmanVeÇalışanYönetimi.Entity;
 
 namespace ŞirketDepartmanVeÇalışanYönetimi;
@@ -69,9 +70,54 @@ class Program
         }
         #endregion
 
-       #region Veri Sorgulama
-        
-       #endregion
+        #region Veri Sorgulama
 
+        decimal minSalary = 10000;
+
+        var result = context.Employees
+                             .Where(e => e.Department.DepartmentName == "Software" && e.Salary > minSalary)
+                             .Select(e => new
+                             {
+                                 e.FullName,
+                                 e.position,
+                                 e.Salary,
+                                 DepartmentName = e.Department.DepartmentName
+                             })
+                             .ToList();
+
+        foreach (var item in result)
+        {
+            Console.WriteLine($"Ad: {item.FullName} kişisi {item.position} pozisyonunda {item.Salary} ₺ karşılığından {item.DepartmentName} Departmanında Çalışıyor..");
+        }
+
+        #endregion
+
+        #region Veri Silme
+
+         Console.Write("Silmek istediğiniz çalışanın Id'sini girin: ");
+         int id = Convert.ToInt32(Console.ReadLine()!);
+
+         //  Çalışanı ID'ye göre bul
+        var employee = context.Employees.FirstOrDefault(e => e.Id == id);
+
+        if (employee != null)
+        {
+            //  Silme işlemi
+            context.Employees.Remove(employee);
+
+            // Değişiklikleri kaydet
+            context.SaveChanges();
+
+            Console.WriteLine($"{employee.FullName} veritabanından silindi.");
+        }
+        else
+        {
+            Console.WriteLine("Belirtilen Id'ye sahip çalışan bulunamadı.");
+        }
+
+
+        #endregion
+        
+        
     }
 }
