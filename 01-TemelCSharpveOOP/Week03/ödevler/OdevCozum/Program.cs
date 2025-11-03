@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         #region Liste Ortalaması Hesaplama
-
+        
             
         #endregion
 
