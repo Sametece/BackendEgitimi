@@ -1,4 +1,5 @@
 using System;
+using ödev.Dtos;
 using ödev.Entity;
 
 namespace ödev.Data.Interfaces;
@@ -14,4 +15,7 @@ public interface IBookRepository
         void Update(Book book); // Var olan kitabı günceller.
 
         void Delete(int id); // Verilen Id ye göre kitapı siler.
+
+            List<BookWithAuthorNameDto> GetBookWithAuthorNameDtos(); //DTO
+
 }

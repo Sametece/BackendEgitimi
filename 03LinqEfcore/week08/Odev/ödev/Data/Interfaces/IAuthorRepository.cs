@@ -1,4 +1,5 @@
 using System;
+using ödev.Dtos;
 using ödev.Entity;
 
 namespace ödev.Data.Interfaces;
@@ -16,6 +17,7 @@ public interface IAuthorRepository
         void Update(Author author); // Var olan Yazarı günceller.
 
         void Delete(int id); // Verilen Id ye göre Yazarı siler.
+
     
 
 }

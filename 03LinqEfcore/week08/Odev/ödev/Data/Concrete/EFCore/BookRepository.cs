@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using ödev.Data.Interfaces;
+using ödev.Dtos;
 using ödev.Entity;
 
 namespace ödev.Data.Concrete.EFCore;
@@ -38,6 +39,25 @@ public class BookRepository:IBookRepository
                               .AsNoTracking()
                               .ToList();
         return books;
+    }
+
+    public List<BookWithAuthorNameDto> GetBookWithAuthorNameDtos()
+    {
+       
+  
+      
+            return _context.Books
+                .AsNoTracking() // EF Core nesne takibini kapat, performans artar
+                .Include(b => b.Author)
+                .Select(b => new BookWithAuthorNameDto
+                {
+                    Title = b.Title,
+                    FullName = b.Author!.FullName
+                })
+                .ToList();
+        
+                             
+    
     }
 
     public Book GetById(int id)     // İd ye ait olan Kitapı Bul Ve Getir Performans için AsnoTracking kullandık Hızlı çalışşın diye

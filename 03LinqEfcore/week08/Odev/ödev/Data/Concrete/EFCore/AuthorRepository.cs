@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using ödev.Data.Interfaces;
+using ödev.Dtos;
 using ödev.Entity;
 
 namespace ödev.Data.Concrete.EFCore;
@@ -39,6 +40,7 @@ public class AuthorRepository : IAuthorRepository
                               .ToList();
         return authors;
     }
+
 
     public Author GetById(int id)     // İd ye ait olan Yazarı Bul Ve Getir Performans için AsnoTracking kullandık Hızlı çalışşın diye
     {
