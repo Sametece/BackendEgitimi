@@ -1,0 +1,6 @@
+@Project32_FirstWebApi_HostAddress = http://localhost:5276
+
+GET {{Project32_FirstWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
