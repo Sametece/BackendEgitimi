@@ -1,0 +1,6 @@
+@Soru1_HostAddress = http://localhost:5276
+
+GET {{Soru1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
