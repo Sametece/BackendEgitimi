@@ -1,0 +1,17 @@
+using System;
+
+namespace soru2.Data.Entites;
+
+public class Post
+{
+   public int Id { get; set; }
+
+   public string? Title { get; set; }
+
+   public string? Content { get; set; }
+
+   public string? Author { get; set; }
+
+    public DateTime PuslishedDate { get; set; } 
+
+}
