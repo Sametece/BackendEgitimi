@@ -1,0 +1,6 @@
+@Project33_WebApiActionMethods_HostAddress = http://localhost:5089
+
+GET {{Project33_WebApiActionMethods_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

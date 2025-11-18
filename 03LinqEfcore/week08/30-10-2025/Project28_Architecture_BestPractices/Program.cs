@@ -22,6 +22,7 @@ class Program
             Console.WriteLine(post.Title);
         }
 
-        // İlerde özellikle context nesnesinin her yapılan istekte yaratılıp, istek sona erdiğinde yok olmasını sağlayacağımız bir yöntem kullanacağız, buna da Dependency Injection diyeceğiz.
+        // İlerde özellikle context nesnesinin her yapılan istekte yaratılıp, istek sona erdiğinde yok olmasını sağlayacağımız bir yöntem kullanacağız,
+        //  buna da Dependency Injection diyeceğiz.
     }
 }
