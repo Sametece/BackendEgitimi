@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Data;
 
-public class ECommerceDbContext : DbContext // Gerekli Miras İşlemi
+public class ECommerceDbContext : DbContext
 {
-    public DbSet<Product> Products { get; set; } // Oluşturulan Entity'i Dbset şekilnde ver 
-    
     public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options):base(options)
     {
         
     }
 
-    
+    public DbSet<Product> Products { get; set; }
 }

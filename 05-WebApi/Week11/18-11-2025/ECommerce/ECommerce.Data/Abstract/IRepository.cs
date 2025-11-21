@@ -3,20 +3,23 @@ using System.Linq.Expressions;
 
 namespace ECommerce.Data.Abstract;
 
-public interface IRepository<T> where T:class // Generic Yapıda interface
+public interface IRepository<T> where T:class
 {
     /// <summary>
     /// ID'ye göre tek bir nesne getirme
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<T> GetByIdAsync(int id); // 3 /// koyarak yukardaki yapıyı oluşturabilirsin
+    Task<T> GetByIdAsync(int id);
+
 
     /// <summary>
     /// Tüm nesneleri getirme
     /// </summary>
     /// <returns></returns>
     Task<IEnumerable<T>> GetAllAsync();
+
+
 
     /// <summary>
     /// Belirli bir koşula uyan nesneleri getirme
@@ -25,6 +28,8 @@ public interface IRepository<T> where T:class // Generic Yapıda interface
     /// <returns></returns>
     Task<IEnumerable<T>> FindAsync(Expression<Func<T,bool>> predicate);
 
+
+
     /// <summary>
     /// Yeni bir nesne ekleme
     /// </summary>
@@ -32,11 +37,14 @@ public interface IRepository<T> where T:class // Generic Yapıda interface
     /// <returns></returns>
     Task AddAsync(T entity);
 
+
+
     /// <summary>
     /// Bir nesneyi güncelleme
     /// </summary>
     /// <param name="entity"></param>
     void Update(T entity);
+
 
     /// <summary>
     /// Bir nesneyi silme
