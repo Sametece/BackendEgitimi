@@ -1,0 +1,17 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace ECommerce.Business.DTOs;
+
+public class CategoryUpdateDto
+{
+    [Required(ErrorMessage ="Id Zorunludur")]
+    public int Id { get; set; }
+
+
+    [Required(ErrorMessage ="Kategori Adı Zorunludur.")]
+    [MinLength(3,ErrorMessage ="Kategori adı en az 3 karekter olmalıdır.")]
+       public string? Name { get; set; }
+
+ public string? Description { get; set; }
+}

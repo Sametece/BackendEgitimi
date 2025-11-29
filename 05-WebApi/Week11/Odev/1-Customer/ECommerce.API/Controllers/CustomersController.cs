@@ -9,29 +9,55 @@ namespace ECommerce.API.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+      private readonly ICustomerService _customerService;
 
-        public CustomersController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
+    public CustomersController(ICustomerService customerService)
+    {
+        _customerService = customerService;
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var list = await _customerService.GetCustomerAllAsync();
-            return Ok(list);
-        }
+    // ✔ TÜM MÜŞTERİLER
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var response = await _customerService.GetCustomerAllAsync();
+        return StatusCode(response.StatusCode, response);
+    }
 
-        [HttpGet("{id:int}")] //int koy veya koyma önemli değil tipini belirttik
-        public async Task<IActionResult> GetById(int id)
-        {
-            var customer = await _customerService.GetCustomerByIdAsyc(id);
-            if (customer == null) return NotFound();
-            return Ok(customer);
-        }
+    // ✔ ID'YE GÖRE
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var response = await _customerService.GetCustomerByIdAsyc(id);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    // ✔ OLUŞTUR
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateCustomerDto dto)
+    {
+        var response = await _customerService.CreateCustomerAsync(dto);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    // ✔ GÜNCELLE
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromBody] CreateCustomerDto dto)
+    {
+        var response = await _customerService.UpdateAsync(id, dto);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    // ✔ SİL
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var response = await _customerService.DeleteAsync(id);
+        return StatusCode(response.StatusCode, response);
+    }
+    }
 
        
     }
-    }
+    
 

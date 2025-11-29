@@ -11,7 +11,7 @@ public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
     }
 
-    public async Task<IEnumerable<Customer>> GetByEmailAsync(string email)
+    public async Task<Customer> GetByEmailAsync(string email)
     {
         return await _dbset.FirstOrDefaultAsync(c => c.Email == email);
     }
