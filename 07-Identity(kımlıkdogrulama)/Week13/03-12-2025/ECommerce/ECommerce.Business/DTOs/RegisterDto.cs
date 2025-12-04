@@ -24,6 +24,6 @@ public class RegisterDto
 
 
     [Required(ErrorMessage = "Parola tekrarı zorunludur!")]
-    [Compare("M")]
+    [Compare(nameof(Password),ErrorMessage = "parolalar uyuşmuyor.")] //password ile aynı olmalı
     public string? ConfirmPassword { get; set; }
 }

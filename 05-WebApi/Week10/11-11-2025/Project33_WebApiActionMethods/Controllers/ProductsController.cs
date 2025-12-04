@@ -5,7 +5,7 @@ using Project33_WebApiActionMethods.Data.Entities;
 
 namespace Project33_WebApiActionMethods.Controllers
 {
-    [Route("api/products")] // http://localhost:5090/api/products
+    [Route("api/products")] // http://localhost:5091/api/products
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -23,8 +23,8 @@ namespace Project33_WebApiActionMethods.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id:int}")] // http://localhost:5090/api/products/4
-        //[Route("{id}")] // http://localhost:5090/api/products/4
+        [HttpGet("{id:int}")] // http://localhost:5091/api/products/4
+        //[Route("{id}")] // http://localhost:5091/api/products/4
         public IActionResult GetProductById([FromRoute] int id)
         {
             // var product = _context.Products.Where(p => p.Id == id);
@@ -36,7 +36,7 @@ namespace Project33_WebApiActionMethods.Controllers
             return Ok(product);
         }
 
-        [HttpPost] // http://localhost:5090/api/products
+        [HttpPost] // http://localhost:5091/api/products
         public IActionResult CreateProduct([FromBody] Product product)//Model Binding
         {
             if (product == null)
