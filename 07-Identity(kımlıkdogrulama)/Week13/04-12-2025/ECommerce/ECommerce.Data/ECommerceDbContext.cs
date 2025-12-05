@@ -26,10 +26,12 @@ public class ECommerceDbContext : IdentityDbContext<AppUser, AppRole, string>
         modelBuilder.Entity<ProductCategory>().HasKey(x => new { x.ProductId, x.CategoryId });
 
         #region Rol Bilgileri
-                List<AppRole>  appRoles = [
-                    new() {Id="57c61e7c-8a9d-4df9-8186-8620037da152" , Name="Admin", NormalizedName="ADMIN"},
-                    new() {Id= "5ac6928d-d442-4a6d-8c6f-c05e411bbe71", Name="User", NormalizedName="USER" }
-                ]
+                var appRoles = new AppRole[]
+        {
+            new AppRole { Id = "dd66d9d0-5aac-42a3-bd53-12ac0574cf1c", Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = "d25463da-3367-438d-abfe-d13fd679c4d8" },
+            new AppRole { Id = "e676b617-bec3-4b92-a746-dfc5043ebe08", Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c93347be-cb61-4ccd-94f1-eb723a9ea5df" }
+        };
+        modelBuilder.Entity<AppRole>().HasData(appRoles);
         #endregion
 
         #region Kategori Bilgileri

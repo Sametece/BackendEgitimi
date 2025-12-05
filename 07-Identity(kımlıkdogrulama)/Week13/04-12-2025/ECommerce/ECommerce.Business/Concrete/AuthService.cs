@@ -77,7 +77,7 @@ public class AuthService : IAuthService
             {
                 return ResponseDto<AppUserDto>.Fail("Kullanıcı adı zaten kayıtlı", 400);
             }
-            var appUser = new AppUser
+            var appUser = new AppUser // yeni kullanıcı oluşturuyoruz.
             {
                 FirstName = registerDto.FirstName, 
                 LastName = registerDto.LastName,
@@ -85,7 +85,7 @@ public class AuthService : IAuthService
                 Email = registerDto.Email,
                 EmailConfirmed = true // email onayı mekanizması eklenirse false yapılacak.
             };
-
+             // Kullanıcıyı oluştur ve parolayı şifreleyerek kaydet. Db'ye.
             var resultCreateUser = await _userManager.CreateAsync(appUser, registerDto.Password);
             if(!resultCreateUser.Succeeded)
             {
@@ -99,6 +99,7 @@ public class AuthService : IAuthService
                 return ResponseDto<AppUserDto>.Fail($"Kullanıcıya rol ataması yapılamadı. Bir hata meydana geldi. ", 500);
             }
             // Email onay mekanizması eklenirse burada onay maili gönderme kodu göndeririz.
+            // Kayıt başarılı ise kullanıcı bilgilerini döneriz.
             var appUserDto = new AppUserDto
             {
                 Id = appUser.Id,
@@ -112,8 +113,7 @@ public class AuthService : IAuthService
         }
         catch (Exception ex)
         {
-            
-            throw;
+            return ResponseDto<AppUserDto>.Fail($"HATA: {ex.Message}", StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -165,7 +165,7 @@ public class AuthService : IAuthService
        catch (Exception ex)
        {
         
-            throw new Exception($"Token oluşturulurken hata oluştu : {ex.Message}");
+            throw new InvalidOperationException($"Token oluşturulurken hata oluştu : {ex.Message}");
        }
 
     }

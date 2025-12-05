@@ -31,7 +31,14 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddAutoMapper(cfg=>{},typeof(MappingProfile));
 
+ //JWT ayarları
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+builder.Services.Configure<AppUrlConfig>(builder.Configuration.GetSection("AppUrlConfig"));
 
+//sectiondan JwtConfig nesnesini alalım.
+var jwtConfig = builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>();
+
+//Identity ayarları, şifre kuralları vs.
 builder.Services.AddIdentity<AppUser,AppRole>(options =>
 {  
     //şifre kuralları vs. buraya eklenebilir.
@@ -46,10 +53,6 @@ builder.Services.AddIdentity<AppUser,AppRole>(options =>
     
 }).AddEntityFrameworkStores<ECommerceDbContext>().AddDefaultTokenProviders();
 
-builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
-builder.Services.Configure<AppUrlConfig>(builder.Configuration.GetSection("AppUrlConfig"));
-
-var jwtConfig = builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -59,16 +62,16 @@ builder.Services.AddAuthentication(options =>
 {
      opt.TokenValidationParameters= new TokenValidationParameters
      {
-          ValidateIssuer=true, //token üreticisi doğrulaması
-          ValidIssuer = jwtConfig!.Issuer,  
+        ValidateIssuer=true, //token üreticisi doğrulaması
+        ValidIssuer = jwtConfig!.Issuer,  //sectiondan aldığımız issuer
 
-          ValidateAudience=true, //token alıcısı doğrulaması
-            ValidAudience = jwtConfig!.Audience,
+        ValidateAudience=true, //token alıcısı doğrulaması
+        ValidAudience = jwtConfig!.Audience, //sectiondan aldığımız audience
 
-            ValidateLifetime=true, //token ömrü doğrulaması
+        ValidateLifetime=true, //token ömrü doğrulaması
 
-            ValidateIssuerSigningKey=true, //imza doğrulaması
-            IssuerSigningKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig!.Secret)), //imza anahtarı
+        ValidateIssuerSigningKey=true, //imza doğrulaması
+        IssuerSigningKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig!.Secret)), //imza anahtarı
      };
 });
 
