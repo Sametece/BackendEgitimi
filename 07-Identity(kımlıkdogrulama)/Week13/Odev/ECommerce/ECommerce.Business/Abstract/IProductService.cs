@@ -10,11 +10,11 @@ public interface IProductService
 {
     Task<ResponseDto<ProductDto>> GetAsync(int id);
     Task<ResponseDto<IEnumerable<ProductDto>>> GetAllAsync(
-        Expression<Func<Product, bool>>? predicate, //filtreleme için
-        Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy,//sıralama için
-        bool? includeCategories = null,//kategori bilgilerini dahil etme
-        int? categoryId=null, //belirli bir kategoriye göre filtreleme
-        bool? isDeleted=null);//silinmiş ürünleri dahil etme
+        Expression<Func<Product, bool>>? predicate,
+        Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy,
+        bool? includeCategories = null,
+        int? categoryId=null,
+        bool? isDeleted=null);
     Task<ResponseDto<IEnumerable<ProductDto>>> GetLowStockAsync(int threshold);
 
     Task<ResponseDto<int>> CountAsync();
