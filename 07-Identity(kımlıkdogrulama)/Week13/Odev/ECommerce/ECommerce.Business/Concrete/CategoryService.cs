@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using ECommerce.Business.Abstract;
 using ECommerce.Business.DTOs;
@@ -136,8 +137,53 @@ public class CategoryService :ICategoryService
         }
     }
 
-    public Task<ResponseDto<NoContent>> UpdateAsync(int id, CategoryUpdateDto categoryUpdateDto)
+   public async Task<ResponseDto<NoContent>> UpdateAsync(int id, CategoryUpdateDto categoryUpdateDto)
+{
+    try
     {
-        throw new NotImplementedException();
+        // 1. Gönderilen id ile dto içindeki id eşleşiyor mu?
+        if (id != categoryUpdateDto.Id)
+        {
+            return ResponseDto<NoContent>.Fail("Id bilgileri tutarsız!", StatusCodes.Status400BadRequest);
+        }
+
+        // 2. Güncellenecek kategori var mı?
+        var updatedCategory = await _categoryRepository.GetAsync(
+            predicate: x => x.Id == id
+        );
+
+        if (updatedCategory == null)
+        {
+            return ResponseDto<NoContent>.Fail( $"{id} id'li kategori bulunamadığı için, güncelleme işlemi yapılamadı.", StatusCodes.Status404NotFound
+            );
+        }
+
+        // 3. Mapping (Dto → Entity)
+        _mapper.Map(categoryUpdateDto, updatedCategory);
+        updatedCategory.ModifiedAt = DateTime.UtcNow;
+
+        // 4. Update
+        _categoryRepository.Update(updatedCategory);
+
+        // 5. Save
+        var result = await _unitOfWork.SaveAsync();
+
+        if (result < 1)
+        {
+            return ResponseDto<NoContent>.Fail(
+                "Kategori güncellenirken, veri tabanından kaynaklı bir sorun oluştu!",
+                StatusCodes.Status500InternalServerError
+            );
+        }
+
+        return ResponseDto<NoContent>.Success(StatusCodes.Status200OK);
     }
+    catch (Exception ex)
+    {
+        return ResponseDto<NoContent>.Fail(
+            ex.Message,
+            StatusCodes.Status500InternalServerError
+        );
+    }
+}
 }
