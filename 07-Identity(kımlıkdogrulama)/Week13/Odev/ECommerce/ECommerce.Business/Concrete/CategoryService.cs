@@ -1,13 +1,13 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using ECommerce.Business.Abstract;
 using ECommerce.Business.DTOs;
 using ECommerce.Business.DTOs.ResponseDtos;
 using ECommerce.Data.Abstract;
-using ECommerce.Data.Concrete;
 using ECommerce.Entity.Concrete;
+using LinqKit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,15 +17,12 @@ public class CategoryService :ICategoryService
 {
    private readonly IUnitOfWork _unitOfWork;
    private readonly IMapper _mapper;
-
-   private readonly IRepository<Product> _productRepository;
    private readonly IRepository<Category> _categoryRepository;
 
     public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _productRepository = _unitOfWork.GetRepository<Product>();
         _categoryRepository = _unitOfWork.GetRepository<Category>();
     }
 
@@ -42,14 +39,110 @@ public class CategoryService :ICategoryService
         }
     }
 
-    public Task<ResponseDto<CategoryDto>> CreateAsync(CategoryCreateDto categoryCreateDto)
+    public async Task<ResponseDto<CategoryDto>> CreateAsync(CategoryCreateDto categoryCreateDto)
     {
-        throw new NotImplementedException();
+        try
+        {     //Kategori Bilgisi Boşmu?
+             if(categoryCreateDto == null)
+            {
+                return ResponseDto<CategoryDto>.Fail("Kategori Bilgisi Boş Gönderilemez.",StatusCodes.Status400BadRequest);
+            }
+
+            var exist = await _categoryRepository.ExistsAsync(
+                x => x.Name.ToLower() == categoryCreateDto.Name!.ToLower() && !x.IsDeleted 
+            );
+            //Aynı isimli kategori varmı ?
+           
+            if (exist)
+            {
+                   return ResponseDto<CategoryDto>.Fail(
+                         "Bu isimde bir kategori zaten mevcut!",StatusCodes.Status400BadRequest);
+            }
+             // DTO -> Entity
+        var newCategory = _mapper.Map<Category>(categoryCreateDto);
+
+        await _categoryRepository.AddAsync(newCategory);
+
+        var result = await _unitOfWork.SaveAsync();
+
+        if (result < 1)
+        {
+            return ResponseDto<CategoryDto>.Fail(
+                "Kategori eklenirken veritabanı hatası oluştu!",
+                StatusCodes.Status500InternalServerError
+            );
+        }
+
+        // Entity -> DTO
+        var categoryDto = _mapper.Map<CategoryDto>(newCategory);
+        return ResponseDto<CategoryDto>.Success(categoryDto, StatusCodes.Status201Created);
+    
+        }
+        catch (Exception ex)
+        {
+            return ResponseDto<CategoryDto>.Fail(ex.Message, StatusCodes.Status500InternalServerError);
+        }
     }
 
-    public Task<ResponseDto<IEnumerable<CategoryDto>>> GetAllAsync(Expression<Func<Category, bool>>? predicate, Func<IQueryable<Category>, IOrderedQueryable<Category>>? orderBy, bool? includeProducts = null, int? productId = null, bool? isDeleted = null)
+    public async Task<ResponseDto<IEnumerable<CategoryDto>>> GetAllAsync(
+        Expression<Func<Category, bool>>? predicate,
+        Func<IQueryable<Category>, IOrderedQueryable<Category>>? orderBy,
+        bool? includeProducts = null,
+        int? productId = null,
+        bool? isDeleted = null)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var predicateBuilder = PredicateBuilder.New<Category>(true);
+
+            if (isDeleted.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(x => x.IsDeleted == isDeleted.Value);
+            }
+
+            if (predicate is not null)
+            {
+                predicateBuilder = predicateBuilder.And(predicate);
+            }
+
+            if (productId.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(x => x.ProductCategories.Any(pc => pc.ProductId == productId.Value));
+            }
+
+            var includeList = new List<Func<IQueryable<Category>, IQueryable<Category>>>();
+            if (includeProducts.GetValueOrDefault())
+            {
+                includeList.Add(q => q.Include(x => x.ProductCategories).ThenInclude(pc => pc.Product));
+            }
+
+            var orderExpression = orderBy ?? (q => q.OrderBy(x => x.Id));
+
+            var categories = await _categoryRepository.GetAllAsync(
+                predicate: predicateBuilder,
+                orderBy: orderExpression,
+                showIsDeleted: isDeleted ?? false,
+                asExpanded: true,
+                includes: includeList.ToArray()
+            );
+
+            if (categories == null || !categories.Any())
+            {
+                return ResponseDto<IEnumerable<CategoryDto>>.Fail(
+                    "Kategori bulunamadı",
+                    StatusCodes.Status404NotFound
+                );
+            }
+
+            var categoryDtos = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            return ResponseDto<IEnumerable<CategoryDto>>.Success(categoryDtos, StatusCodes.Status200OK);
+
+        }
+        catch (Exception ex)
+        {
+            return ResponseDto<IEnumerable<CategoryDto>>.Fail(ex.Message, StatusCodes.Status500InternalServerError);
+        }
     }
 
     public async Task<ResponseDto<CategoryDto>> GetAsync(int id)
@@ -95,7 +188,7 @@ public class CategoryService :ICategoryService
 
             if (result < 1)
             {
-                  return ResponseDto<NoContent>.Fail("Ürün silinmeye çalışılırken, veri tabanından kaynaklı bir sorun oluştu!", StatusCodes.Status500InternalServerError);
+                  return ResponseDto<NoContent>.Fail("Kategori silinirken veri tabanından kaynaklı bir sorun oluştu!", StatusCodes.Status500InternalServerError);
             }
             return ResponseDto<NoContent>.Success(StatusCodes.Status200OK);
         }
